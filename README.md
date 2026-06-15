@@ -45,8 +45,18 @@ No in the run.sbatch command (this is designed for running on stampede3, on a di
 3. Then, on stampede3, run gizmo by calling sbatch run.sbatch:
 4. If you are running a longer simulation (currently it is set to a maximum time of 2 hours): delete or comment out the --partition, it is currently set to a partition with a 2 hour maximum to reduce wait time; replace --time with your desired maximum run time.
 
+Lastly for running SPHERIC, it is easiest to download the "GIZMO/spheric" folder here as this contains additional functions that fix a significant bug and facilitate easily generating initial conditions. The original code can also be found online here: https://bitbucket.org/migroch/spheric/src/main/. Our code has a major bugfix, as setting a nonzero position or velocity for the subhalo puts the subhalo out of equilibrium. The easiest way to create an initial condition is to use the spheric_gen_simple.py script. Just go into this script, modify the mass, scale radius, position, velocity, and output file parameters and run the script. Make sure that you run this in the directory it is set up in here containing spheric itself and the pv_fix.py, which is the script to fix the initial condition issue.
 
+Another option is to use the spheric_gen.py script. This takes in a few command line arguments detailed within the file. It also expects a csv file of data for the subhalos, an example of such a csv is provided in GIZMO/sub_init_cond.csv. The units of the values in this csv are also detailed in GIZMO/sub_init_cond_units.json to help you in creating such a CSV. The data for this example CSV are taken from TNG, but we recommend you select data yourself as the conditions of the subhalos used here may not be ideal depending on your purposes, but they could serve as suitable test cases. 
 
-
+Copy and paste the output hdf5 file into your run directory for GIZMO, make sure params.txt in your run directory has the correct file specified (again without the .hdf5 extension). This should run your simulation.
 
 # References and Data Sources
+
+The data contained in the "TNG" folder are from the IllustrisTNG public dataset which can be accessed from their website: https://www.tng-project.org/data/
+
+We use code that is not ours from Philip Hopkins for GIZMO, again it is from this GitHub: https://github.com/pfhopkins/gizmo-public; and the spherIC code from Miguel Rocha: https://bitbucket.org/migroch/spheric/src/main/
+
+------
+
+If you have any questions, please reach out to me at rcholder@umich.edu, or contact me through the PI on this project, mkapling@uci.edu
