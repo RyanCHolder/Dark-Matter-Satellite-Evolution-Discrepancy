@@ -42,10 +42,10 @@ To actually run GIZMO, copy the GIZMO/example_rundir. You will need to copy your
 No in the run.sbatch command (this is designed for running on stampede3, on a different system you will have to make modifications)
 1. Replace --mail-user and --account= with your login email and allocation account id
 2. Change rundir to the path of your run directory
-3. Then, on stampede3, run gizmo by calling sbatch run.sbatch
+3. Then, on stampede3, run gizmo by calling sbatch run.sbatch:
 4. If you are running a longer simulation (currently it is set to a maximum time of 2 hours)
-- Delete or comment out the --partition, it is currently set to a partition with a 2 hour maximum to reduce wait time
-- Replace --time with your desired maximum run time
+\t - Delete or comment out the --partition, it is currently set to a partition with a 2 hour maximum to reduce wait time
+\t - Replace --time with your desired maximum run time
 
 
 
