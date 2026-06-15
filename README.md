@@ -17,6 +17,8 @@ Note at the end of this notebook there are a couple of additional functions that
 
 To reproduce our analyses on the structural and numerical influences tidal tracks compared with existing models, download the "TNG/data" fold and go to "TNG/multi_analysis.py" where a number of functions have been created (with comments explaining what they do and how they work). By default, running this python script without any arguments will reproduce the plots generated in the thesis report (assuming you run it in the same directory as the "TNG/data" folder contained here. "TNG/data" contains all the data that comes out of running "TNG/sample_selection.ipynb" on the TNG Jupyter lab server.
 
+The code for plotting the gNFW profile used in Figure 1 in the thesis report is found at the end of the "TNG/sample_selection.ipynb" file under a heading "Optional Function to Visualize gNFW Fit." This requires the TNG particle data, hence why it is intended for the notebook to go on the TNG server.
+
 # Einstein Radius Calculations
 
 An additional set of functions for calculating einstein radii is contained in "TNG/R_E_functions.py" which calculate einstein radii using particle data for the subhalo, catalog data, and catalog data corrected by the Green and van den Bosch 2019 model. Note, while these functions will work in any environment, passing in the particle data will require accessing and/or downloading particle data through the TNG API. Please see the "TNG/sample_selection.ipynb" code to see how to access these data.
