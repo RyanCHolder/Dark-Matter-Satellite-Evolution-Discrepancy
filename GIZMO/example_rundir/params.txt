@@ -1,0 +1,140 @@
+%---------
+%--- cosmology and ics
+InitCondFile                       /path/to/example_rundir/TreeId26-gizmo
+
+ICFormat                           3
+NumFilesPerSnapshot                1
+TimeBegin                          0
+BoxSize                            7000
+Omega0                             0.315
+OmegaLambda                        0.685
+OmegaBaryon                        0.049
+HubbleParam                        0.674
+%---------
+%--- softening aka resolution (units of code length, set somewhere)
+%our sim is small so change things, part-type 1 we change (DMO)
+%conventionally type-1 is DM, don't need to change other ones
+%type 5 is BH
+Softening_Type0                    0.003% Gas 
+Softening_Type1                    0.001  % Halo
+Softening_Type2                    1    % Disk
+Softening_Type3                    2    % Bulge
+Softening_Type4                    0.01 % Stars
+Softening_Type5                    2    % Bndry
+%can ignore these...
+%Softening_Type0_MaxPhysLimit       0.0003
+%Softening_Type1_MaxPhysLimit       0.02
+%Softening_Type2_MaxPhysLimit       0.1
+%Softening_Type3_MaxPhysLimit       0.2
+%Softening_Type4_MaxPhysLimit       0.001
+%Softening_Type5_MaxPhysLimit       0.2
+%---------
+%--- memory - depend on cluster and hardware (shouldn't need to do anything here)
+MaxMemSize                         3300 % memory per MPI task in MB
+PartAllocFactor                    2
+BufferSize                         50
+TreeDomainUpdateFrequency          0.005
+% decrease TDUF if in cpu.txt file the imbalances are larger than ~25%
+%---------
+%--- dm physics (set cross section to 0 for CDM)
+DM_InteractionCrossSection         0
+DM_DissipationFactor               0
+DM_KickPerCollision                0
+DM_InteractionVelocityScale        24.33
+%FuzzyDM_Mass_in_eV                 0
+%---------
+%--- bh growth and feedback (we can ignore)
+SeedBlackHoleMass                  1e-08
+BlackHoleAccretionFactor           1
+BAL_f_accretion                    0.5
+BAL_v_outflow                      3e+04
+BAL_wind_particle_mass             1e-07
+SeedBlackHolePerUnitMass           1e-03
+BAL_internal_temperature           2e+10
+BH_CosmicRay_Injection_Efficiency  0.01
+BlackHoleRadiativeEfficiency       0.1
+BH_FluxMomentumFactor              1
+%---------
+%--- sf and feedback [fixed] (we can ignore)
+CritPhysDensity                    1000
+SfEffPerFreeFall                   1
+InitMetallicity                    0.0001
+InitStellarAge                     0.001
+WindMomentumLoading                1
+SNeIIEnergyFrac                    1
+HIIRegion_fLum_Coupled             1
+PhotonMomentum_Coupled_Fraction    1
+PhotonMomentum_fUV                 0
+PhotonMomentum_fOPT                0
+GasReturnFraction                  1
+GasReturnEnergy                    1
+CosmicRay_SNeFraction              0.1
+BlackHoleEddingtonFactor           1
+BlackHoleFeedbackFactor            1
+SeedBlackHoleMinRedshift           0
+SeedAlphaDiskMass                  0
+SeedBlackHoleMassSigma             0
+BlackHoleNgbFactor                 8
+BlackHoleMaxAccretionRadius        5
+%---------
+%--- plasma physics [fixed] (we can ignore)
+CosmicRayDiffusionCoeff            690
+BiniX                              1e-10
+BiniY                              1e-10
+BiniZ                              1e-10
+ConductionCoeff                    1
+ShearViscosityCoeff                1
+BulkViscosityCoeff                 1
+TurbDiffusionCoefficient           1
+%---------
+%--- numerical [fixed] (code units are probably Gigayear)
+TimeMax                            15 %Gyr
+ComovingIntegrationOn              0 %off cause this is not cosmological
+MaxSizeTimestep                    0.005 %higher is better but don't put too far above MinSize
+MinSizeTimestep                    1e-12
+%don't change these next 3 cause spheric assumes them
+UnitLength_in_cm                   3.08568e+21 %should be 1kpc
+UnitMass_in_g                      1.989e+43 %10^10 Msun
+UnitVelocity_in_cm_per_s           100000 %1 km/s
+UnitMagneticField_in_gauss         1
+GravityConstantInternal            0
+InitGasTemp                        0
+MinGasTemp                         10
+DesNumNgb                          32
+MaxHsml                            1e+06
+MinGasHsmlFractional               1
+SnapFormat                         3 %HDF5 format
+OutputDir                          /scratch/10833/rholder/rundir2/output
+RestartFile                        restart
+SnapshotFileBase                   snapshot
+OutputListOn                       0
+%OutputListFilename                 /scratch/10833/rholder/test_sim2/outputlistfilename.txt
+NumFilesWrittenInParallel          8
+TimeOfFirstSnapshot                0
+TimeBetSnapshot                    0.2 %Gyr
+TimeBetStatistics                  1e+10
+TimeLimitCPU                       86370 %num seconds then GIZMO stops (this is just under 48 hrs)
+CpuTimeBetRestartFile              3500 %(seconds) how often GIZMO makes restart files
+ResubmitOn                         0
+ResubmitCommand                    none
+TimeBetOnTheFlyFoF                 1.05
+AGS_DesNumNgb                      32
+
+%------------------------
+%---Developer Mode params
+%---Usually hardcoded
+%---Adjusted for SIDM
+ErrTolTheta                  0.7    % 0.7=standard  
+ErrTolForceAcc               0.0025 % 0.0025=standard  %ETA
+%ErrTolIntAccuracy        0.010  % <0.02  
+%This should be the only change needed:
+ErrTolIntAccuracy         0.002 % Igor's defaults to 0.0025 %KAPPA
+CourantFac               0.1    % <0.20  
+MaxRMSDisplacementFac    0.125  % <0.25  
+MaxNumNgbDeviation      0.05    % <<DesNumNgb (values<1 are fine)  
+AGS_MaxNumNgbDeviation  0.10  % tolerance in Nngb (make larger than gas)  
+%---- Magneto-Hydrodynamics Developer-Mode Parameters (MAGNETIC on)  
+%--- Dedner 2002 div-cleaning parameters  
+DivBcleaningParabolicSigma   1.0 % (3D~0.7-1.0,2D~0.2-0.3)  
+DivBcleaningHyperbolicSigma  1.0 % (~1) 
+
