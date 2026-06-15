@@ -43,9 +43,7 @@ No in the run.sbatch command (this is designed for running on stampede3, on a di
 1. Replace --mail-user and --account= with your login email and allocation account id
 2. Change rundir to the path of your run directory
 3. Then, on stampede3, run gizmo by calling sbatch run.sbatch:
-4. If you are running a longer simulation (currently it is set to a maximum time of 2 hours)
-  - Delete or comment out the --partition, it is currently set to a partition with a 2 hour maximum to reduce wait time
-  - Replace --time with your desired maximum run time
+4. If you are running a longer simulation (currently it is set to a maximum time of 2 hours): delete or comment out the --partition, it is currently set to a partition with a 2 hour maximum to reduce wait time; replace --time with your desired maximum run time.
 
 
 
